@@ -28,8 +28,9 @@ void require(bool condition, std::string_view message) {
 
 namespace generator_assets = river_raid::assets::generator;
 
-constexpr auto feature_choices(const auto& source) {
-    std::array<river_raid::TerrainFeatureChoice, std::size(source)> result{};
+template<std::size_t Count>
+constexpr auto feature_choices(const std::array<generator_assets::RiverFeatureChoice, Count>& source) {
+    std::array<river_raid::TerrainFeatureChoice, Count> result{};
     for (std::size_t index = 0; index < source.size(); ++index) {
         result[index] = {source[index].margin, source[index].stamp_index};
     }
