@@ -1,0 +1,10 @@
+.idea/
+.agents/
+.codex/
+.aws/
+.build/
+build/
+/build-ubsan/
+analysis/generated/
+__pycache__/
+*.pyc
