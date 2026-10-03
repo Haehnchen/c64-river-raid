@@ -240,7 +240,9 @@ class ReleaseTests(unittest.TestCase):
         with patch.object(release.platform, "system", return_value="Linux"), \
                 patch.object(release, "_run", return_value="statically linked\n"):
             outputs = release.package(self.build, destination)
-        self.assertEqual(set(destination.iterdir()), set(outputs))
+        self.assertEqual(set(os.listdir(destination)), {output.name for output in outputs})
+        self.assertTrue(all(output.is_file() and output.parent.samefile(destination)
+                            for output in outputs))
         self.assertFalse((self.build / "release").exists())
 
     def test_failed_zip_write_keeps_the_existing_archive_and_cleans_temporary_file(self) -> None:
